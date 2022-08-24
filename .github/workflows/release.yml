@@ -19,3 +19,7 @@ jobs:
 
       - run: dotnet publish DotNetSql.Cli/DotNetSql.Cli.csproj -c Release -r osx.12-arm64 -p:PublishSingleFile=true -p:EnableCompressionInSingleFile=true --sc
       - run: ls -l DotNetSql.Cli/bin/Release/net6.0/osx.12-arm64/publish/
+      - name: Upload Artifact
+        uses: softprops/action-gh-release@v1
+        with:
+          files: DotNetSql.Cli/bin/Release/net6.0/osx.12-arm64/publish/DotNetSql.Cli
