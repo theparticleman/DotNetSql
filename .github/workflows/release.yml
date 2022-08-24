@@ -17,4 +17,4 @@ jobs:
         with:
           dotnet-version: 6.0.x
 
-      - run: dotnet build
+      - run: dotnet publish DotNetSql.Cli/DotNetSql.Cli.csproj -c Release -r osx.12-arm64 -p:PublishSingleFile=true -p:EnableCompressionInSingleFile=true --sc
