@@ -23,7 +23,7 @@ jobs:
       
       - run: dotnet publish DotNetSql.Cli/DotNetSql.Cli.csproj -c Release -r win-x64 -p:PublishSingleFile=true -p:EnableCompressionInSingleFile=true --sc
 
-      - run: zip sql-cli.win-x64.zip DotNetSql.Cli/bin/Release/net6.0/win-x64/publish/sql-cli.exe
+      - run: zip -j sql-cli.win-x64.zip DotNetSql.Cli/bin/Release/net6.0/win-x64/publish/sql-cli.exe
 
       - name: Upload OSX ARM Artifact
         uses: softprops/action-gh-release@v1
