@@ -17,7 +17,7 @@ jobs:
         with:
           dotnet-version: 6.0.x
       
-      - run: apt -y install zip 
+      - run: sudo apt -y install zip 
 
       - run: dotnet publish DotNetSql.Cli/DotNetSql.Cli.csproj -c Release -r osx.12-arm64 -p:PublishSingleFile=true -p:EnableCompressionInSingleFile=true --sc
       
