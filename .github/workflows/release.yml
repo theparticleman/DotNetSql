@@ -16,12 +16,21 @@ jobs:
       - uses: actions/setup-dotnet@v2
         with:
           dotnet-version: 6.0.x
+      
+      -run: apt -y install zip 
 
       - run: dotnet publish DotNetSql.Cli/DotNetSql.Cli.csproj -c Release -r osx.12-arm64 -p:PublishSingleFile=true -p:EnableCompressionInSingleFile=true --sc
       
-      - run: ls -l DotNetSql.Cli/bin/Release/net6.0/osx.12-arm64/publish/
+      - run: dotnet publish DotNetSql.Cli/DotNetSql.Cli.csproj -c Release -r win-x64 -p:PublishSingleFile=true -p:EnableCompressionInSingleFile=true --sc
 
-      - name: Upload Artifact
+      - run: zip sql-cli.win-x64.zip DotNetSql.Cli/bin/Release/net6.0/win-x64/publish/sql-cli.exe
+
+      - name: Upload OSX ARM Artifact
         uses: softprops/action-gh-release@v1
         with:
           files: DotNetSql.Cli/bin/Release/net6.0/osx.12-arm64/publish/sql-cli
+
+      - name: Upload win-x64 Artifact
+        uses: softprops/action-gh-release@v1
+        with:
+          files: sql-cli.win-x64.zip
