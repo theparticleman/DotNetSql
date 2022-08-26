@@ -34,7 +34,7 @@ public class ExecuteSqlCommand : Command<SqlSettings>
             AnsiConsole.WriteLine("Missing argument parameters; use --help to see instructions");
             return -1;
         }
-       
+        
         var fileContents = fileSystem.ReadAllText(settings.ScriptPath);
         sqlServerAdapter.Execute(fileContents, settings.BuildConnectionString());
         return 0;
@@ -55,18 +55,26 @@ public class ExecuteSqlCommand : Command<SqlSettings>
 public class SqlSettings : CommandSettings
 {
     [CommandOption("-U|--user")]
-    [Description("DB username")]
+    [Description("Username for database")]
     public string? UserName { get; set; }
     [CommandOption("-P|--password")]
+    [Description("Password for database")]
     public string? Password { get; set; }
     [CommandOption("-H|-S|--hostname")]
+    [Description("Hostname for database. For local db use 'localhost'")]
     public string? HostName { get; set; }
     [CommandOption("-i|--input-file")]
+    [Description("File path to a sql script that you want executed")]
     public string? ScriptPath { get; set; }
     [CommandOption("--port")]
+    [Description("Port number of database")]
     public int? Port { get; set; }
     [CommandOption("-v|--version")]
     public bool? Version {get; set;}
+
+    [CommandOption("-d|--database")]
+    [Description("Specific database name")]
+    public string? Database { get; set; }
 
     public string BuildConnectionString()
     {
@@ -78,6 +86,10 @@ public class SqlSettings : CommandSettings
             DataSource = dataSource,
             Encrypt = SqlConnectionEncryptOption.Optional
         };
+        if (Database != null)
+        {
+            builder.InitialCatalog = Database;
+        }
         return builder.ConnectionString;
     }
 }

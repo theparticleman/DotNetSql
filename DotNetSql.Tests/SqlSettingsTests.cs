@@ -16,7 +16,7 @@ public class SqlSettingsTests
 
         var result = classUnderTest.BuildConnectionString();
         
-        Assert.That(result, Is.EqualTo("Data Source=sql-server;User ID=user-name;Password=password"));
+        Assert.That(result, Is.EqualTo("Data Source=sql-server;User ID=user-name;Password=password;Encrypt=False"));
     }
 
     [Test]
@@ -32,6 +32,23 @@ public class SqlSettingsTests
 
         var result = classUnderTest.BuildConnectionString();
         
-        Assert.That(result, Is.EqualTo("Data Source=sql-server,1234;User ID=user-name;Password=password"));        
+        Assert.That(result, Is.EqualTo("Data Source=sql-server,1234;User ID=user-name;Password=password;Encrypt=False"));        
+    }
+
+    [Test]
+    public void When_building_a_connection_string_with_database_specified()
+    {
+        var classUnderTest = new SqlSettings
+        {
+            UserName = "user-name",
+            Password = "password",
+            HostName = "sql-server",
+            Port = 1234,
+            Database = "database"
+        };
+        
+        var result = classUnderTest.BuildConnectionString();
+        
+        Assert.That(result, Is.EqualTo("Data Source=sql-server,1234;Initial Catalog=database;User ID=user-name;Password=password;Encrypt=False")); 
     }
 }

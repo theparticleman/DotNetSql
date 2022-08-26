@@ -113,6 +113,4 @@ public class Tests
         
         Assert.That(result, Is.EqualTo(-1));
     }
-
-    
 }
