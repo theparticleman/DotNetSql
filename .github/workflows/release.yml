@@ -19,11 +19,11 @@ jobs:
       
       - run: sudo apt -y install zip 
 
-      - run: dotnet publish DotNetSql.Cli/DotNetSql.Cli.csproj -c Release -r osx.12-arm64 -p:PublishSingleFile=true -p:EnableCompressionInSingleFile=true --sc -p:PublishTrimmed=true -p:Version=${{github.ref_name}}
+      - run: dotnet publish DotNetSql.Cli/DotNetSql.Cli.csproj -c Release -r osx.12-arm64 -p:PublishSingleFile=true -p:EnableCompressionInSingleFile=true --sc -p:PublishTrimmed=true -p:VersionPrefix=${{github.ref_name}}
       
       - run: zip -j sql-cli.osx.12-arm64.zip DotNetSql.Cli/bin/Release/net6.0/osx.12-arm64/publish/sql-cli
 
-      - run: dotnet publish DotNetSql.Cli/DotNetSql.Cli.csproj -c Release -r win-x64 -p:PublishSingleFile=true -p:EnableCompressionInSingleFile=true --sc -p:Version=${{github.ref_name}}
+      - run: dotnet publish DotNetSql.Cli/DotNetSql.Cli.csproj -c Release -r win-x64 -p:PublishSingleFile=true -p:EnableCompressionInSingleFile=true --sc -p:VersionPrefix=${{github.ref_name}}
 
       - run: zip -j sql-cli.win-x64.zip DotNetSql.Cli/bin/Release/net6.0/win-x64/publish/sql-cli.exe DotNetSql.Cli/bin/Release/net6.0/win-x64/publish/Microsoft.Data.SqlClient.SNI.dll
 
